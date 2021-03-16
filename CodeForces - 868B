@@ -1,0 +1,69 @@
+#include<cstdio>
+#include<cstring>
+#include<string>
+#include<iostream>
+#include<algorithm>
+#include<deque>
+using namespace std;
+int main()
+{
+	int h, m, s, t1, t2;
+	cin >> h >> m >> s >> t1 >> t2;
+	int lin = t1 * 5;
+	if (t1 < t2)
+	{
+		if (t1 <= h && h < t2)
+		{
+			if (t1 * 5 > m || t2 * 5 <= m)
+				printf("NO\n");
+			else
+			{
+				if (t1 * 5 > s || t2 * 5 < s)
+					printf("NO\n");
+				else
+					printf("YES\n");
+			}
+		}
+		else
+		{
+			if (t1 * 5 <= m && t2 * 5 > m)
+				printf("NO\n");
+			else
+			{
+				if (t1 * 5 < s && t2 * 5 > s)
+					printf("NO\n");
+				else
+					printf("YES\n");
+			}
+		}
+	}
+	else
+	{
+		swap(t1, t2);
+		if (t1 <= h && h < t2)
+		{
+			if (t1 * 5 > m || t2 * 5 <= m)
+				printf("NO\n");
+			else
+			{
+				if (t1 * 5 > s || t2 * 5 < s)
+					printf("NO\n");
+				else
+					printf("YES\n");
+			}
+		}
+		else
+		{
+			if (t1 * 5 <= m && t2 * 5 > m)
+				printf("NO\n");
+			else
+			{
+				if (t1 * 5 < s && t2 * 5 > s)
+					printf("NO\n");
+				else
+					printf("YES\n");
+			}
+		}
+	}
+	return 0;
+}
