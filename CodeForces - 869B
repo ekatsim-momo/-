@@ -1,0 +1,28 @@
+#include<cstdio>
+#include<cstring>
+#include<string>
+#include<iostream>
+#include<algorithm>
+#include<deque>
+#include<map>
+#include<vector>
+using namespace std;
+int main()
+{
+	long long a, b,sum=1;
+	cin >> a >> b;
+	if (a != b)
+	{
+		for (long long i = a + 1; i <= b; i++)
+		{
+			sum *= (i % 10);
+			sum %= 10;
+			if (sum == 0)
+				break;
+		}
+		cout << sum;
+	}
+	else
+		cout << "1\n";
+	return 0;
+}
