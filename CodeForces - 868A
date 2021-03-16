@@ -1,0 +1,42 @@
+#include<cstdio>
+#include<cstring>
+#include<string>
+#include<iostream>
+#include<algorithm>
+#include<deque>
+using namespace std;
+int main()
+{
+	int num, ok = 0, ok2 = 0;
+	string s[200], ss;
+	cin >> ss >> num;
+	for (int i = 1; i <= num; i++)
+		cin >> s[i];
+	for (int i = 1; i <= num; i++)
+	{
+		if (s[i][1] == ss[0])
+			ok = 1;
+		if (s[i][0] == ss[1])
+			ok2 = 1;
+	}
+	if (ok&&ok2)
+		printf("YES\n");
+	else
+	{
+		ok = 0;
+		ok2 = 0;
+		for (int i = 1; i <= num; i++)
+		{
+			if (s[i][0] == ss[0]&&s[i][1]==ss[1])
+			{
+				ok = 1;
+				ok2 = 1;
+			}
+		}
+		if (ok&&ok2)
+			printf("YES\n");
+		else
+		printf("NO\n");
+	}
+	return 0;
+}
