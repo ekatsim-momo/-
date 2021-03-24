@@ -1,0 +1,55 @@
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+#include<iostream>
+#include<sstream>
+#include<map>
+#include<vector>
+#include<cmath>
+using namespace std;
+long long arr[1000100];
+bool prime[1000100];
+long long t[1000100];
+int main()
+{
+    memset(prime,true,sizeof(prime));
+    memset(arr,0,sizeof(arr));
+    memset(t,0,sizeof(t));
+    prime[1]=prime[0]=false;
+    long long n,x,y,num=0;
+    long long sum,mmin=100000000000000000;
+    scanf("%lld%lld%lld",&n,&x,&y);
+    for(int i=1; i<=n; i++)
+    {
+        scanf("%lld",&arr[i]);
+        t[arr[i]]++;
+    }
+    for(int i=2; i<1000000; i++)
+    {
+        if(prime[i])
+        {
+            num=t[i];
+            for(int j=i+i; j<1000000; j+=i)
+            {
+                prime[j]=false;
+                num+=t[j];
+            }
+            if((n-num)*min(x,y)<mmin)
+            {
+                sum=0;
+                for(int j=1; j<=n&&sum<mmin; j++)
+                {
+                    if(arr[j]%i==0)
+                        continue;
+                    else if(x<(i-arr[j]%i)*y)
+                        sum+=x;
+                    else
+                        sum+=(i-arr[j]%i)*y;
+                }
+                mmin=min(mmin,sum);
+            }
+        }
+    }
+    cout<<mmin;
+    return 0;
+}
