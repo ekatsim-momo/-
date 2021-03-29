@@ -1,0 +1,65 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+#include<vector>
+#include<cstdio>
+#include<stack>
+using namespace std;
+struct E
+{
+	int next,num,front;
+}all[100010],arr;
+stack<E>ans;
+int main()
+{
+	int ge=0,head, n, num,lin,first=0,size;
+	scanf("%d%d%d", &head, &n, &num);
+	for(int i=0;i<n;i++)
+	{
+		scanf("%d", &lin);
+		scanf("%d%d", &all[lin].num, &all[lin].next);
+		all[lin].front = lin;
+	}
+	int i=head;
+	while (i != -1)
+	{
+		ge++;
+		i = all[i].next;
+	}
+	i = head;
+	size = ge / num;
+	for (int j = 1; j <= size; j++)
+	{
+		ge = 0;
+		for (; ge < num; ge++)
+		{
+			ans.push(all[i]);
+			i = all[i].next;
+		}
+		while (!ans.empty())
+		{
+			arr = ans.top();
+			if (first)
+				printf("%05d\n", arr.front);
+			printf("%05d %d ", arr.front, arr.num);
+			ans.pop();
+			first = 1;
+		}
+	}
+	if (first)
+	{
+		if (i != -1)
+			printf("%05d\n", all[i].front);
+		else
+			printf("-1\n");
+	}
+	for (; i != -1;)
+	{
+		if(all[i].next!=-1)
+		printf("%05d %d %05d\n", all[i].front, all[i].num, all[i].next);
+		else
+			printf("%05d %d -1\n", all[i].front, all[i].num);
+		i = all[i].next;
+	}
+	return 0;
+}
