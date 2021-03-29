@@ -1,0 +1,44 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+#include<vector>
+#include<cstdio>
+#include<cstring>
+#include<queue>
+#include<map>
+using namespace std;
+int arr[300], brr[300];
+int main()
+{
+	memset(arr, 0, sizeof(arr));
+	int n,start=0,mmin;
+	string s;
+	cin >>n>> s;
+	int j,ok=0;
+	for (int i = 0; i < n; i++)
+	{
+		if (arr[s[i]] == 0)
+			ok = 1;
+		arr[s[i]]++;
+		for (j = start; j < i; j++)
+		{
+			if (arr[s[j]] > 1)
+				arr[s[j]]--;
+			else
+			{
+				start = j;
+				break;
+			}
+		}
+		start = j;
+		if (ok)
+		{
+			mmin = i - start + 1;
+			ok = 0;
+		}
+		else
+			mmin = min(mmin, i - start + 1);
+	}
+	cout << mmin;
+	return 0;
+}
