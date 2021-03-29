@@ -1,0 +1,63 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+#include<vector>
+#include<cstdio>
+#include<cstring>
+#include<queue>
+#include<map>
+using namespace std;
+bool arr[100100], brr[100100];
+int main()
+{
+	memset(arr, true, sizeof(arr));
+	memset(brr, true, sizeof(brr));
+	int n, m,a,b,lastx,lasty;
+	scanf("%d%d", &n, &m);
+	lastx = lasty = n;
+	long long sum = (long long)n * n;
+	for (int i = 1; i <= m; i++)
+	{
+		scanf("%d%d", &a, &b);
+		if (arr[a] && brr[b])
+		{
+			sum -= (lastx + lasty - 1);
+			if (i != m)
+				printf("%lld ", sum);
+			else
+				printf("%lld\n", sum);
+			lastx--;
+			lasty--;
+			arr[a] = false;
+			brr[b] = false;
+		}
+		else if (arr[a])
+		{
+			sum -= lasty;
+			arr[a] = false;
+			if (i != m)
+				printf("%lld ", sum);
+			else
+				printf("%lld\n", sum);
+			lastx--;
+		}
+		else if (brr[b])
+		{
+			sum -= lastx;
+			brr[b]=false;
+			if (i != m)
+				printf("%lld ", sum);
+			else
+				printf("%lld\n", sum);
+			lasty--;
+		}
+		else
+		{
+			if (i != m)
+				printf("%lld ", sum);
+			else
+				printf("%lld\n", sum);
+		}
+	}
+	return 0;
+}
