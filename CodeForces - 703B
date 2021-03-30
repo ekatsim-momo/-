@@ -1,0 +1,93 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+#include<vector>
+#include<cstdio>
+#include<cstring>
+#include<queue>
+#include<map>
+using namespace std;
+int arr[100010];
+bool yes[100010];
+vector<int>M;
+int main()
+{
+	vector<int>::iterator p,p2;
+	int n, k,ca;
+	long long sum = 0,num=0,last;
+	memset(arr, 0, sizeof(arr));
+	memset(yes, true, sizeof(yes));
+	scanf("%d%d", &n, &k);
+	if (k > 40000)
+	{
+		for (int i = 1; i <= n; i++)
+		{
+			scanf("%d", &arr[i]);
+			num += arr[i];
+		}
+		for (int i = 1; i <= n; i++)
+			sum += (num - arr[i])*arr[i];
+		for (int i = 1; i <= k; i++)
+		{
+			scanf("%d", &ca);
+			yes[ca] = false;
+		}
+		for (int i = 1; i <= n; i++)
+		{
+			if (yes[i])
+				M.push_back(i);
+		}
+		for (p = M.begin(); p != M.end(); p++)
+		{
+			p2 = p;
+			for (p2++; p2 != M.end(); p2++)
+			{
+				if (*p2 - *p != 1 && *p2 - *p != -1 && (*p2 != 1 || *p != n) && (*p2 != n || *p != 1))
+					sum -= arr[*p] * arr[*p2] * 2;
+			}
+		}
+		cout << sum / 2;
+	}
+	else
+	{
+		for (int i = 1; i <= n; i++)
+		{
+			scanf("%d", &arr[i]);
+			sum += arr[i] * arr[i - 1];
+			num += arr[i];
+		}
+		sum += arr[1] * arr[n];
+		arr[0] = arr[n];
+		for (int i = 1; i <= k; i++)
+		{
+			scanf("%d", &ca);
+			if (ca != n)
+			{
+				last = num - arr[ca - 1] - arr[ca + 1] - arr[ca];
+				for (p = M.begin(); p != M.end(); p++)
+				{
+					if ((*p) == ca - 1 || (*p) == ca + 1)
+						continue;
+					else
+						last -= arr[*p];
+				}
+				sum += arr[ca] * last;
+			}
+			else
+			{
+				last = num - arr[ca - 1] - arr[1] - arr[ca];
+				for (p = M.begin(); p != M.end(); p++)
+				{
+					if ((*p) == ca - 1 || (*p) == 1)
+						continue;
+					else
+						last -= arr[*p];
+				}
+				sum += arr[ca] * last;
+			}
+			M.push_back(ca);
+		}
+		cout << sum;
+	}
+	return 0;
+}
