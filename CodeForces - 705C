@@ -1,0 +1,51 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <string>
+#include <map>
+using namespace std;
+int app[300010],bpp[300010],crr[300010];
+vector<int>arr;
+int main()
+{
+    memset(crr,0,sizeof(crr));
+  memset(app,0,sizeof(app));
+  memset(bpp,0,sizeof(bpp));
+  int n,q,type,ap,sum=0,last=0;
+  scanf("%d%d",&n,&q);
+  for(int i=1;i<=q;i++)
+  {
+      scanf("%d%d",&type,&ap);
+      if(type==1)
+      {
+          app[ap]++;
+          bpp[ap]++;
+          sum++;
+          arr.push_back(ap);
+      }
+      else if(type==2)
+      {
+          sum-=app[ap];
+          app[ap]=0;
+      }
+      else
+      {
+          for(;last<ap;last++)
+          {
+              if(bpp[arr[last]]-crr[arr[last]]==app[arr[last]])
+                {
+                    sum--;
+                    app[arr[last]]--;
+                }
+                crr[arr[last]]++;
+          }
+      }
+      cout<<sum<<endl;
+  }
+    return 0;
+}
