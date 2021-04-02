@@ -1,0 +1,113 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <string>
+#include <map>
+using namespace std;
+long long arr[5100], brr[5100], crr[5100], drr[5100], all[5100];
+int yes[5100];
+void read(int n)
+{
+	for (int i = 1; i <= n; i++)
+		cin >> all[i];
+	for (int i = 1; i <= n; i++)
+		cin >> arr[i];
+	for (int i = 1; i <= n; i++)
+		cin >> brr[i];
+	for (int i = 1; i <= n; i++)
+		cin >> crr[i];
+	for (int i = 1; i <= n; i++)
+		cin >> drr[i];
+}
+void dfs(int num, int ins, int last)
+{
+	long long mmin = 1000000000000000, loc, sum;
+	for (int i = num; i != last; i = yes[i])
+	{
+		if (ins > i&&ins > yes[i])
+		{
+			if(i>yes[i])
+			sum = -abs(all[i]-all[yes[i]])-crr[i]-brr[yes[i]]+abs(all[i] - all[ins]) + abs(all[ins] - all[yes[i]]) + drr[i] + arr[ins] + crr[ins] + brr[yes[i]];
+			else
+				sum= -abs(all[i] - all[yes[i]]) - drr[i] - arr[yes[i]] + abs(all[i] - all[ins]) + abs(all[ins] - all[yes[i]]) + drr[i] + arr[ins] + crr[ins] + brr[yes[i]];
+			if (sum < mmin)
+			{
+				mmin = sum;
+				loc = i;
+			}
+		}
+		else if (ins<i&&ins>yes[i])
+		{
+			if(i>yes[i])
+			sum = -abs(all[i] - all[yes[i]]) - crr[i] - brr[yes[i]] + abs(all[i] - all[ins]) + abs(all[ins] - all[yes[i]]) + crr[i] + brr[ins] + crr[ins] + brr[yes[i]];
+			else
+				sum = -abs(all[i] - all[yes[i]]) - drr[i] - arr[yes[i]] + abs(all[i] - all[ins]) + abs(all[ins] - all[yes[i]]) + crr[i] + brr[ins] + crr[ins] + brr[yes[i]];
+			if (sum < mmin)
+			{
+				mmin = sum;
+				loc = i;
+			}
+		}
+		else if (ins < i&&ins < yes[i])
+		{
+			if(i>yes[i])
+			sum = -abs(all[i] - all[yes[i]]) - crr[i] - brr[yes[i]] + abs(all[i] - all[ins]) + abs(all[ins] - all[yes[i]]) + crr[i] + brr[ins] + drr[ins] + arr[yes[i]];
+			else
+				sum = -abs(all[i] - all[yes[i]]) - drr[i] - arr[yes[i]] + abs(all[i] - all[ins]) + abs(all[ins] - all[yes[i]]) + crr[i] + brr[ins] + drr[ins] + arr[yes[i]];
+			if (sum < mmin)
+			{
+				mmin = sum;
+				loc = i;
+			}
+		}
+		else
+		{
+			if(i>yes[i])
+			sum = -abs(all[i] - all[yes[i]]) - crr[i] - brr[yes[i]] + abs(all[i] - all[ins]) + abs(all[ins] - all[yes[i]]) + drr[i] + arr[ins] + drr[ins] + arr[yes[i]];
+			else
+				sum = -abs(all[i] - all[yes[i]]) - drr[i] - arr[yes[i]] + abs(all[i] - all[ins]) + abs(all[ins] - all[yes[i]]) + drr[i] + arr[ins] + drr[ins] + arr[yes[i]];
+			if (sum < mmin)
+			{
+				mmin = sum;
+				loc = i;
+			}
+		}
+	}
+	yes[ins] = yes[loc];
+	yes[loc] = ins;
+}
+void edfs(int start, int last)
+{
+	long long sum = 0;
+	int i = start;
+	while (yes[i] != -1)
+	{
+		if (i < yes[i])
+			sum += abs(all[i] - all[yes[i]]) + drr[i] + arr[yes[i]];
+		else
+			sum += abs(all[i] - all[yes[i]]) + crr[i] + brr[yes[i]];
+		i = yes[i];
+	}
+	cout << sum;
+}
+int main()
+{
+	int n, s, e;
+	memset(yes, 0, sizeof(yes));
+	scanf("%d%d%d", &n, &s, &e);
+	yes[s] = e;
+	yes[e] = -1;
+	read(n);
+	for (int i = 1; i <= n; i++)
+	{
+		if (yes[i] == 0)
+			dfs(s, i, e);
+	}
+    edfs(s, e);
+	return 0;
+}
