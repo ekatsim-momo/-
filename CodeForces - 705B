@@ -1,0 +1,27 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <string>
+#include <map>
+using namespace std;
+int main()
+{
+long long n,num;
+long long sum=0;
+cin>>n;
+for(int i=1;i<=n;i++)
+{
+    scanf("%lld",&num);
+    sum+=(num-1);
+    if(sum%2==0)
+        cout<<"2\n";
+    else
+        cout<<"1\n";
+}
+    return 0;
+}
