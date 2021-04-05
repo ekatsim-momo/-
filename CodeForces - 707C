@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <string>
+#include <map>
+using namespace std;
+int main()
+{
+  unsigned long long a,c;
+     cin>>a;
+  c=a;
+  a*=a;
+  if(a%2==0)
+  {
+      a/=4;
+      if(a-1<=c&&a!=4)
+        cout<<"-1\n";
+      else
+      {
+        cout<<a-1<<" "<<a+1<<endl;
+      }
+  }
+  else
+  {
+      a/=2;
+      if(a>c)
+      {
+          cout<<a<<" "<<a+1<<endl;
+      }
+      else
+        cout<<"-1\n";
+  }
+    return 0;
+}
