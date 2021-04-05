@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <string>
+#include <map>
+using namespace std;
+struct E
+{
+    int len,num;
+}lin;
+vector<E>arr[100100];
+bool yes[100100];
+bool ban[100100];
+int all[100100];
+int mmin=0x7fffffff;
+void dfs(int i)
+{
+    int size=arr[i].size();
+    for(int j=0;j<size;j++)
+    {
+        if(ban[arr[i][j].num]==false)
+            continue;
+        else
+            mmin=min(mmin,arr[i][j].len);
+    }
+}
+int main()
+{
+ int n,m,k,u,v,start;
+ cin>>n>>m>>k;
+ for(int i=0;i<m;i++)
+ {
+     scanf("%d%d%d",&u,&v,&lin.len);
+     lin.num=v;
+     arr[u].push_back(lin);
+     lin.num=u;
+     arr[v].push_back(lin);
+ }
+ memset(ban,true,sizeof(ban));
+ for(int i=0;i<k;i++)
+    {
+        scanf("%d",&all[i]);
+        ban[all[i]]=false;
+    }
+    for(int i=0;i<k;i++)
+    {
+        dfs(all[i]);
+    }
+    if(mmin==0x7fffffff)
+        cout<<-1<<endl;
+    else
+    cout<<mmin;
+    return 0;
+}
