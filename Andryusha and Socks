@@ -1,0 +1,36 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <string>
+#include <map>
+using namespace std;
+bool yes[110000];
+int main()
+{
+	memset(yes, false, sizeof(yes));
+	int num,a,sum=0,mmax=0;
+	cin >> num;
+	num *= 2;
+	for (int i = 1; i <= num; i++)
+	{
+		cin >> a;
+		if (yes[a])
+		{
+			yes[a] = false;
+			sum--;
+		}
+		else
+		{
+			yes[a] = true;
+			sum++;
+		}
+		mmax = max(sum, mmax);
+	}
+	cout << mmax;
+	return 0;
+}
