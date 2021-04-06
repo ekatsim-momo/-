@@ -1,0 +1,63 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <string>
+#include <map>
+using namespace std;
+int x[60010], v[60010];
+double letime = 0, ritime = 1e9;
+double lex, rix,x1,x2;
+double find(int n)
+{
+	again:
+	double z = (letime + ritime) / 2.0;
+	lex = x[0] - v[0] * z;
+	rix = x[0] + v[0] * z;
+	for (int i = 1; i < n; i++)
+	{
+		x1 = x[i] - v[i] * z;
+		x2 = x[i] + v[i] * z;
+		if (x1<=rix&&x1>=lex)
+		{
+			lex = x1;
+			rix = min(rix, x2);
+		}
+		else if (x2 >= lex&&x2 <= rix)
+		{
+			rix = x2;
+			lex = max(lex, x1);
+		}
+		else if (x1<=lex&&x2>=rix)
+		{
+			continue;
+		}
+		else
+		{
+			letime = z;
+			goto again;
+		}
+	}
+	if (rix - lex < 1e-7)
+		return z;
+	else
+	{
+		ritime = z;
+		goto again;
+	}
+}
+int main()
+{
+	int n;
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++)
+		scanf("%d", &x[i]);
+	for (int i = 0; i < n; i++)
+		scanf("%d", &v[i]);
+	printf("%.10lf\n",find(n));
+	return 0;
+}
