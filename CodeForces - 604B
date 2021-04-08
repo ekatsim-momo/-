@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <string>
+#include <map>
+using namespace std;
+int arr[100010];
+priority_queue<int,vector<int>,greater<int> >all;
+int main()
+{
+ int n,k,num,mmax=0;
+ scanf("%d%d",&n,&k);
+ for(int i=1;i<=n;i++)
+ {
+     scanf("%d",&arr[i]);
+      mmax=max(arr[i],mmax);
+ }
+ if(k>=n)
+ {
+     cout<<mmax;
+     return 0;
+ }
+ else
+ {
+ int j=n,num=0;
+ for(;num<k;num++,j--)
+     all.push(arr[j]);
+     for(;j>0;j--)
+     {
+         int a=all.top();
+         all.pop();
+        mmax=max(mmax,a+arr[j]);
+     }
+    cout<<mmax;
+ }
+    return 0;
+}
