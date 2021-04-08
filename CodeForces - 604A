@@ -1,0 +1,30 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <string>
+#include <map>
+using namespace std;
+int a[6],w[6];
+int ac,wa;
+int main()
+{
+    double sum=0;
+for(int i=1;i<=5;i++)
+    cin>>a[i];
+  for(int i=1;i<=5;i++)
+    cin>>w[i];
+      cin>>ac>>wa;
+      for(int i=1;i<=5;i++)
+      {
+          sum+=max(0.3*(double)500.0*i,(1.0-(double)a[i]/250.0)*500.0*i-(double)50.0*w[i]);
+      }
+      sum+=(ac*100-wa*50);
+      int ans=(int)sum;
+      cout<<ans;
+    return 0;
+}
