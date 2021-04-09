@@ -1,0 +1,97 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <queue>
+#include <string>
+#include <map>
+using namespace std;
+struct E
+{
+	int f;
+	string fname, sename;
+}lin;
+int hx[100][100][100], hx2[100][100][100];
+vector<E>all;
+int n;
+int dfs(int a, int b, int c)
+{
+	for (int i = 0; i < n; i++)
+	{
+		if (hx[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].fname[2] - 'A']==1&&all[i].fname[0] == a + 'A'&&all[i].fname[1] == b + 'A'&&all[i].fname[2] == c + 'A')
+		{
+			if (hx2[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].sename[0] - 'A'] != 0)
+			{
+				cout << "NO\n";
+				return 0;
+			}
+			hx[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].fname[2] - 'A']--;
+			hx2[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].sename[0] - 'A']++;
+			if (hx[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].sename[0] - 'A'] == 1)
+			{
+				if (dfs(all[i].fname[0] - 'A', all[i].fname[1] - 'A', all[i].sename[0] - 'A') == 0)
+					return 0;
+			}
+			all[i].f = 2;
+		}
+	}
+	return 1;
+}
+int main()
+{
+	cin >> n;
+		memset(hx, 0, sizeof(hx));
+		memset(hx2, 0, sizeof(hx2));
+		lin.f = 1;
+		for (int i = 0; i < n; i++)
+		{
+			cin >> lin.fname >> lin.sename;
+			all.push_back(lin);
+			hx[lin.fname[0] - 'A'][lin.fname[1] - 'A'][lin.fname[2] - 'A']++;
+		}
+		for (int i = 0; i < n; i++)
+		{
+			if (hx[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].fname[2] - 'A'] > 1)
+			{
+				all[i].f = 2;
+				if (hx2[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].sename[0] - 'A'] >= 1)
+				{
+					cout << "NO\n";
+					return 0;
+				}
+				hx2[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].sename[0] - 'A']++;
+			}
+		}
+		for (int i = 0; i < n; i++)
+		{
+			if (hx[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].fname[2] - 'A'] == 1 && hx2[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].fname[2] - 'A'] != 0)
+			{
+				if (hx2[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].sename[0] - 'A'] != 0)
+				{
+					cout << "NO\n";
+					return 0;
+				}
+				hx[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].fname[2] - 'A']--;
+				hx2[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].sename[0] - 'A']++;
+				if (hx[all[i].fname[0] - 'A'][all[i].fname[1] - 'A'][all[i].sename[0] - 'A'] == 1)
+				{
+					if (dfs(all[i].fname[0] - 'A', all[i].fname[1] - 'A', all[i].sename[0] - 'A') == 0)
+						return 0;
+				}
+				all[i].f = 2;
+			}
+		}
+		cout << "YES\n";
+		for (int i = 0; i < n; i++)
+		{
+			cout << all[i].fname[0] << all[i].fname[1];
+			if (all[i].f == 1)
+				cout << all[i].fname[2] << endl;
+			else if (all[i].f == 2)
+				cout << all[i].sename[0] << endl;
+		}
+	return 0;
+}
