@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr[100010];
+bool yes[100010];
+int main()
+{
+    memset(yes,true,sizeof(yes));
+    memset(arr,0,sizeof(arr));
+    int n,ni=0;
+    scanf("%d",&n);
+    for(int i=0; i<n; i++)
+        scanf("%d",&arr[i]);
+    int i=0,last,sum,mmax=0;
+        while(i<n)
+        {
+            while(yes[arr[i]]==false)
+                i++;
+            yes[arr[i]]=false;
+            last=arr[i];
+            sum=last;
+            for(int j=i+1; j<n; j++)
+            {
+                if(arr[j]==last+1)
+                {
+                    last++;
+                    yes[arr[j]]=false;
+                }
+            }
+            mmax=max(mmax,last-sum+1);
+        }
+        cout<<n-mmax;
+    return 0;
+}
