@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct E
+{
+    int a,b;
+   bool operator<(const E l)const
+    {
+        return a<l.a;
+    }
+}arr[1000010];
+int yes[1000010],num[1000010],num2[1000010];
+int main()
+{
+    memset(num,0,sizeof(num));
+    memset(yes,0,sizeof(yes));
+    int n,sum1=0,sum2=0x7fffffff;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d%d",&arr[i].a,&arr[i].b);
+        num[arr[i].a]++;
+        num2[arr[i].a]++;
+    }
+    sort(&arr[0],&arr[n]);
+    for(int i=1;i<=1000000;i++)
+            num[i]+=num[i-1];
+    for(int i=0;i<n;i++)
+    {
+    sum1=0;
+    int j;
+    int fr=arr[i].a-arr[i].b;
+    if(fr>=0)
+    sum1=num[arr[i].a]-num[fr]-num2[arr[i].a]+num2[fr];
+    else
+        sum1=num[arr[i].a]-num2[arr[i].a];
+        j=i-sum1-1;
+        if(j>=0)
+    yes[i]=yes[j]+sum1;
+    else
+        yes[i]=sum1;
+    }
+    for(int i=0;i<n;i++)
+        sum2=min(sum2,yes[i]+n-1-i);
+    cout<<sum2;
+    return 0;
+}
