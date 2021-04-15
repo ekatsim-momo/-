@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long arr[200100];
+int main()
+{
+    long long n,num,loc=0,sum=0;
+    scanf("%lld",&n);
+    for(int i=0;i<n;i++)
+    {
+        sum=loc=0;
+       scanf("%lld",&num);
+       for(int j=0;j<num;j++)
+        scanf("%lld",&arr[j]);
+        sort(&arr[0],&arr[num]);
+        for(int j=0;j<num;j++)
+        {
+            loc++;
+            if(loc>=arr[j])
+            {
+                sum++;
+                loc=0;
+            }
+        }
+            cout<<sum<<endl;
+    }
+    return 0;
+}
