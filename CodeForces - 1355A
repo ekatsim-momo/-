@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long f(long long a)
+{
+    long long mmax=0,mmin=10;
+    while(a)
+    {
+        mmax=max(mmax,a%10);
+        mmin=min(mmin,a%10);
+        a/=10;
+    }
+    return mmax*mmin;
+}
+int main()
+{
+long long n,a,b,lin;
+cin>>n;
+for(int i=1;i<=n;i++)
+    {
+        cin>>a>>b;
+        for(int i=1;i<b;i++)
+            {
+                lin=f(a);
+                if(lin==0)
+                    break;
+                else
+                    a+=lin;
+            }
+        cout<<a<<endl;
+    }
+    return 0;
+}
