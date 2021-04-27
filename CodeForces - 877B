@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+string s;
+int mmax=0;
+int main()
+{
+    int numa,numb,a1,b1,a2,b2;
+    numa=numb=a1=b1=a2=b2=0;
+    cin>>s;
+    int size=s.size();
+    for(int i=0;i<size;i++)
+    {
+        if(s[i]=='a')
+            numa++;
+        else if(s[i]=='b')
+            numb++;
+    }
+    mmax=max(numa,numb);//只保留a与b
+    for(int i=0;i<size;i++)
+    {
+        if(s[i]=='b')
+            b1++;
+        else if(s[i]=='a')
+            a1++;
+        mmax=max(mmax,b1+numa-a1);//ba
+         mmax=max(mmax,a1+numb-b1);//ab
+        a2=b2=0;
+        for(int j=size-1;j>i;j--)
+        {
+        if(s[j]=='b')
+            b2++;
+        else if(s[j]=='a')
+            a2++;
+        mmax=max(mmax,a1+numb-b1-b2+a2);//aba
+        }
+    }
+    cout<<mmax;
+  return 0;
+}
