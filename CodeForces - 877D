@@ -24,7 +24,7 @@ void bfs()
 					q.push(make_pair(f[j][0] * i + a.first, f[j][1] * i + a.second));
 				}
 				else
-					continue;
+				    continue;
 			}
 		if (yes[x2][y2] != -1)
 			return;
