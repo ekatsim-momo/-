@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+char mp[1010][1010];
+int yes[1010][1010];
+int f[6][2] = { {1,0},{-1,0},{0,-1},{0,1} };
+int n, m, k, x, x2, y2, y;
+void bfs()
+{
+	queue<pair<int, int> >q;
+	q.push(make_pair(x, y));
+	while (!q.empty())
+	{
+		pair<int, int>a;
+		a = q.front();
+		q.pop();
+		for (int j = 0; j <= 3; j++)
+			for (int i = 1; i <= k; i++)
+			{
+				if (f[j][0] * i + a.first < 0 || f[j][1] * i + a.second < 0 || f[j][0] * i + a.first >= n || f[j][1] * i + a.second >= m || mp[f[j][0] * i + a.first][f[j][1] * i + a.second] == '#')
+					break;
+				if (yes[f[j][0] * i + a.first][f[j][1] * i + a.second] == -1)
+				{
+					yes[f[j][0] * i + a.first][f[j][1] * i + a.second] = yes[a.first][a.second] + 1;
+					q.push(make_pair(f[j][0] * i + a.first, f[j][1] * i + a.second));
+				}
+				else
+					continue;
+			}
+		if (yes[x2][y2] != -1)
+			return;
+	}
+}
+int main()
+{
+	memset(yes, -1, sizeof(yes));
+	cin >> n >> m >> k;
+	getchar();
+	for (int i = 0; i < n; i++)
+		scanf("%s", mp[i]);
+	cin >> x >> y >> x2 >> y2;
+	x--, y--, x2--, y2--;
+	yes[x][y] = 0;
+	bfs();
+	cout << yes[x2][y2];
+	return 0;
+}
