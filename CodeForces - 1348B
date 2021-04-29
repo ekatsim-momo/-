@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+int arr[500];
+set<int>al;
+int ans[500];
+int main()
+{
+    int n,len,num;
+    scanf("%d",&n);
+    while(n--)
+    {
+        int count =0,j=1;
+        memset(ans,0,sizeof(ans));
+        al.clear();
+        scanf("%d%d",&num,&len);
+        for(int i=1; i<=num; i++)
+        {
+            scanf("%d",&arr[i]);
+            al.insert(arr[i]);
+        }
+        int size=al.size();
+        if(size>len)
+            cout<<"-1";
+        else
+        {
+            for(set<int>::iterator i=al.begin(); i!=al.end(); i++)
+                ans[j++]=(*i);
+            cout<<size*100<<endl<<ans[1];
+            for(int i=2,j=2; j<=size*100; i++)
+            {
+                if(i>size)
+                    i=1;
+                count++;
+                j++;
+                if(count==len)
+                {
+                    i=1;
+                    count=0;
+                }
+                cout<<" "<<ans[i];
+            }
+        }
+        cout<<endl;
+    }
+    return 0;
+}
