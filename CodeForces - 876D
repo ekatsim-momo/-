@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool yes[3000010];
+int main()
+{
+    int n,num=1,last,count=0,nu;
+    memset(yes,false,sizeof(yes));
+    scanf("%d",&n);
+    cout<<1;
+    last=n;
+    for(int i=1;i<=n;i++)
+    {
+        scanf("%d",&nu);
+        yes[nu]=true;
+        count=0;
+        while(last>=0&&yes[last])
+        {
+            last--;
+            count++;
+        }
+        num+=(1-count);
+        cout<<" "<<num;
+    }
+    return 0;
+}
