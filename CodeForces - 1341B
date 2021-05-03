@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+int arr[200010];
+bool yes[200010];
+int sum=0,start=1;
+int anssum=0,ansstart=1;
+int main()
+{
+    int n,num,k,nx=0;
+   scanf("%d",&n);
+   while(n--)
+   {
+       nx=0;
+       sum=0;
+       start=1;
+       anssum=0;
+       ansstart=1;
+       memset(yes,false,sizeof(yes));
+       scanf("%d%d",&num,&k);
+       for(int i=1;i<=num;i++)
+            scanf("%d",&arr[i]);
+            arr[num+1]=0x7fffffff;
+        for(int i=2;i<=num;i++)
+        {
+            if(nx)
+            {
+                nx=0;
+                sum++;
+            }
+            if(arr[i]>arr[i-1]&&arr[i]>arr[i+1])
+                {
+                    nx=1;
+                    yes[i-1]=true;
+                }
+            if(i-start>=k)
+            {
+                if(yes[start])
+                    sum--;
+                start++;
+            }
+            if(anssum<sum)
+            {
+                anssum=sum;
+                ansstart=start;
+            }
+        }
+       printf("%d %d\n",anssum+1,ansstart);
+   }
+    return 0;
+}
