@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+int arr[1000000];
+int main()
+{
+    int n,num;
+    cin>>n;
+    while(n--)
+    {
+        cin>>num;
+        for(int i=1;i<=num;i++)
+            cin>>arr[i];
+            int i;
+            for(i=1;i<num;i++)
+            {
+                if(arr[i+1]==arr[i]+1||arr[i+1]<arr[i])
+                    continue;
+                else
+                {
+                    cout<<"No\n";
+                    break;
+                }
+            }
+            if(i==num)
+                cout<<"Yes\n";
+    }
+    return 0;
+}
