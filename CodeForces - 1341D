@@ -1,0 +1,127 @@
+//1.利用位运算
+#include<bits/stdc++.h>
+using namespace std;
+int s[2010],nu[10]={119,18,93,91,58,107,111,82,127,123};
+int ans[2010];
+int n,numm;
+bool yes[2010][2010]={false};
+bool dfs(int num,int last)
+{
+    if(last<0||(num>=n+1&&last!=0))
+            return false;
+    else if(num==n+1&&last==0)
+            return true;
+            if(yes[num][last])
+                return false;
+            yes[num][last]=true;
+    for(int j=9;j>=0;j--)
+        {
+            int sum=0;
+            if((nu[j]|s[num])==nu[j])
+            {
+                int a=nu[j]^s[num];
+                while(a)
+                {
+                    if(a&1)
+                        sum++;
+                    a=a>>1;
+                }
+                ans[num]=j;
+                if(dfs(num+1,last-sum))
+                    return true;
+            }
+        }
+        return false;
+}
+string lin;
+int main()
+{
+    scanf("%d%d",&n,&numm);
+    for(int i=1;i<=n;i++)
+        {
+            cin>>lin;
+            s[i]=lin[0]-'0';
+            for(int j=1;j<7;j++)
+            {
+                s[i]*=2;
+                s[i]+=lin[j]-'0';
+            }
+        }
+        if(dfs(1,numm))
+        {
+            for(int i=1;i<=n;i++)
+                printf("%d",ans[i]);
+        }
+        else
+            cout<<"-1";
+    return 0;
+}
+//
+//
+//
+//
+//
+//
+//
+//
+//2.string暴力判断
+#include<bits/stdc++.h>
+using namespace std;
+string s[2010];
+string nu[10];
+vector<int>ans;
+bool yes[2010][2010]={false};
+int n,numm;
+bool dfs(int num,int last)
+{
+    if(last<0||(num>=n+1&&last!=0))
+        return false;
+    else if(num==n+1&&last==0)
+            return true;
+            if(yes[num][last])
+                return false;
+            yes[num][last]=true;
+    for(int j=9;j>=0;j--)
+        {
+            int sum=0,jj;
+            for(jj=0;jj<7;jj++)
+            {
+                if(nu[j][jj]=='0'&&s[num][jj]=='1')
+                    break;
+                    else if(nu[j][jj]=='1'&&s[num][jj]=='0')
+                        sum++;
+            }
+            if(jj==7)
+                {
+                    ans.push_back(j);
+                    if(dfs(num+1,last-sum))
+                       return true;
+                ans.erase(ans.end()-1);
+                }
+        }
+        return false;
+}
+int main()
+{
+    nu[0]="1110111";
+    nu[1]="0010010";
+    nu[2]="1011101";
+    nu[3]="1011011";
+    nu[4]="0111010";
+    nu[5]="1101011";
+    nu[6]="1101111";
+    nu[7]="1010010";
+    nu[8]="1111111";
+    nu[9]="1111011";
+    cin>>n>>numm;
+    for(int i=1;i<=n;i++)
+        cin>>s[i];
+        if(dfs(1,numm))
+        {
+            for(vector<int>::iterator i=ans.begin();i!=ans.end();i++)
+                cout<<*i;
+        }
+        else
+            cout<<"-1";
+    return 0;
+}
