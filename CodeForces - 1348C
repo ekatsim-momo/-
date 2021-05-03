@@ -4,81 +4,57 @@ string s;
 int num[50];
 int main()
 {
-   //freopen("test1","r",stdin);
-   //freopen("my","w",stdout);
     int n,len,nu;
     cin>>n;
     while(n--)
     {
-        int sum=0,ge,count=0,ju2=0,ju=0;
+        int sum=0,ge,count=0,first=1,ju=0,q=0;
         memset(num,0,sizeof(num));
         cin>>len>>nu>>s;
         for(int i=0; i<len; i++)
             num[s[i]-'a']++;
-        int q=0;
         while(num[q]==0)
             q++;
-        if(num[q]<nu)
+        if(num[q]<nu)//特判
         {
-            again:
-            sum+=num[q];
-            q++;
-            while(num[q]==0)
+            while(sum+num[q]<nu)
+            {
+                sum+=num[q];
                 q++;
-                if(num[q]+sum<nu)
-                    goto again;
+            }
             printf("%c\n",q+'a');
-            continue;
         }
         else
         {
-            sum=0;
-            for(q=0; q<26; q++)
-                if(num[q]!=0)
+            for(int i=0; i<26; i++)
+                    if(num[i]!=0)
                     count++;
-            if(count==1)
+            for(int i=0; i<26; i++)
             {
-                q=0;
-                while(num[q]==0)
-                    q++;
-                if(num[q]%nu!=0)
-                    ge=num[q]/nu+1;
-                else
-                    ge=num[q]/nu;
-                while(ge--)
-                    printf("%c",q+'a');
-            }
-            else
-            {
-                for(int i=0; i<26; i++)
-                {
-                    if(num[i]==0)
+                if(num[i]==0)
                     continue;
-                    if(ju2==0)
-                    {
-                        ju2=1;
-                        num[i]++;
-                        num[i]-=nu;
-                        ge=num[i];
-                        if(ge==1)
+                if(first&&count!=1)
+                {
+                    first=0;
+                    num[i]-=(nu-1);
+                    if(num[i]==1)
                         ju++;
-                        while(ge--)
-                            printf("%c",i+'a');
-                    }
-                    else if(count==2&&ju)
-                    {
-                        if(num[i]%nu!=0)
-                            ge=num[i]/nu+1;
-                        else
-                            ge=num[i]/nu;
-                        while(ge--)
-                            printf("%c",i+'a');
-                    }
+                    while(num[i]--)
+                        printf("%c",i+'a');
+                }
+                else if(count==2&&ju||count==1)
+                {
+                    if(num[i]%nu!=0)
+                        ge=num[i]/nu+1;
                     else
-                    {
-                        for(int j=1;j<=num[i];j++)
-                            printf("%c",i+'a');
-                    }
+                        ge=num[i]/nu;
+                    while(ge--)
+                        printf("%c",i+'a');
+                }
+                else
+                {
+                    for(int j=1; j<=num[i]; j++)
+                        printf("%c",i+'a');
                 }
             }
             cout<<endl;
