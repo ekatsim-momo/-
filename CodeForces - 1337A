@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n,a,b,c,d,aa,bb,cc,dd;
+    cin>>n;
+    while(n--)
+    {
+        cin>>a>>b>>c>>d;
+        aa=a,bb=b,cc=c,dd=d;
+       while(1)
+       {
+            if(cc>=bb+aa)
+           {
+                if((cc+c)/2!=cc||cc==c)
+               cc=(cc+c)/2;
+               else
+               cc=(cc+c)/2-1;
+               if((aa+b)/2!=aa||aa==b)
+               aa=(aa+b)/2;
+               else
+               aa=(aa+b)/2+1;
+               if((bb+c)/2!=bb||bb==c)
+               bb=(bb+c)/2;
+               else
+                bb=(bb+c)/2+1;
+           }
+           if(aa+bb>cc&&cc-bb<aa)
+           {
+               printf("%d %d %d\n",aa,bb,cc);
+       break;
+       }
+       }
+        next:
+            continue;
+    }
+    return 0;
+}
