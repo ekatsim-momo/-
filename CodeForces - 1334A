@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+int p[10000],c[10000];
+int main()
+{
+    int n,num,ok;
+    cin>>n;
+    while(n--)
+    {
+        ok=1;
+        cin>>num;
+        for(int i=1; i<=num; i++)
+            cin>>p[i]>>c[i];
+        for(int i=1; i<=num; i++)
+        {
+            if((p[i]-p[i-1]<0)||(c[i]-c[i-1]<0)||(c[i]-c[i-1]>p[i]-p[i-1]))
+            {
+                cout<<"NO\n";
+                ok=0;
+                break;
+            }
+        }
+        if(ok)
+            cout<<"YES\n";
+    }
+    return 0;
+}
