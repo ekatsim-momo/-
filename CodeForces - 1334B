@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+priority_queue<long long>q;
+int main()
+{
+    long long t,num,we,a;
+    scanf("%lld",&t);
+    while(t--)
+    {
+        while(!q.empty())
+            q.pop();
+        scanf("%lld%lld",&num,&we);
+        while(num--)
+        {
+            scanf("%lld",&a);
+            q.push(a);
+        }
+        if(q.top()>=we)
+        {
+            int count =1;
+            long long sum=q.top();
+            q.pop();
+            while(sum>=we*count&&!q.empty())
+            {
+                sum+=q.top();
+                q.pop();
+                count++;
+            }
+            if(sum<we*count)
+                count--;
+            cout<<count<<endl;
+        }
+        else
+            cout<<0<<endl;
+    }
+    return 0;
+}
