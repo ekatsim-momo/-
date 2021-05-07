@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	int n;
+	scanf("%d",&n);
+	while(n--)
+    {
+        int t,num;
+        scanf("%d",&t);
+        vector<vector<int> >all(210,vector<int>(t+1));
+        vector<vector<int> >h(210);
+        for(int i=1;i<=t;i++)
+        {
+            scanf("%d",&num);
+            for(int j=1;j<=200;j++)
+                all[j][i]=all[j][i-1]+(num==j);
+            h[num].push_back(i);
+        }
+        int sum=0;
+        for(int i=1;i<=200;i++)
+        {
+            int size=h[i].size();
+            sum=max(sum,size);
+            for(int j=1;j<=size/2;j++)
+            {
+                int le=h[i][j-1],ri=h[i][size-j]-1;
+                for(int q=1;q<=200;q++)
+                    sum=max(sum,j*2+all[q][ri]-all[q][le]);
+            }
+        }
+        cout<<sum<<endl;
+    }
+	return 0;
+}
