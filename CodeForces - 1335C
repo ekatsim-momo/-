@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+int arr[200010];
+int main()
+{
+    int t,n,sum1,mmax,num;
+    scanf("%d",&t);
+    while(t--)
+    {
+        sum1=0;
+        mmax=0;
+        memset(arr,0,sizeof(arr));
+        scanf("%d",&n);
+        for(int i=1;i<=n;i++)
+        {
+            scanf("%d",&num);
+             arr[num]++;
+            if(arr[num]==1)
+                sum1++;
+            mmax=max(mmax,arr[num]);
+        }
+        if(mmax!=sum1)
+            cout<<min(mmax,sum1)<<endl;
+        else
+            cout<<mmax-1<<endl;
+    }
+    return 0;
+}
