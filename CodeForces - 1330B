@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+set<int>p;
+int arr[200010];
+int yes[200010];
+vector<int>point;
+int main()
+{
+    int t,n,mmax;
+    scanf("%d",&t);
+    memset(yes,false,sizeof(yes));
+   again:
+    while(t--)
+    {
+        for(set<int>::iterator g=p.begin();g!=p.end();g++)
+            yes[*g]=0;
+        mmax=0;
+        point.clear();
+        p.clear();
+        scanf("%d",&n);
+        for(int i=1; i<=n; i++)
+        {
+            scanf("%d",&arr[i]);
+            p.insert(arr[i]);
+            yes[arr[i]]++;
+        }
+            int scr=p.size(),last=2;
+            for(int i=1;i<=scr;i++)
+            {
+                if(yes[i]==2)
+                    mmax=max(mmax,i);
+                    if(yes[i]<=last&&yes[i]>0)
+                    last=yes[i];
+                    else
+                    {
+                        cout<<0<<endl;
+                        goto again;
+                    }
+                    yes[i]=0;
+            }
+        for(int i=1;i<=n;i++)
+        {
+            yes[arr[i]]++;
+            if(i==scr)
+            {
+                int j;
+                for(j=1;j<=scr;j++)
+                {
+                    if(yes[j]==1)
+                        continue;
+                        else
+                            break;
+                }
+                if(j==scr+1)
+                    point.push_back(scr);
+            }
+            else if(i==mmax)
+            {
+                int j;
+                for(j=1;j<=mmax;j++)
+                {
+                    if(yes[j]==1)
+                        continue;
+                        else
+                            break;
+                }
+                if(j==mmax+1)
+                    point.push_back(mmax);
+            }
+        }
+        cout<<point.size()<<endl;
+        for(vector<int>::iterator jj=point.begin();jj!=point.end();jj++)
+            cout<<*jj<<" "<<n-*jj<<endl;
+    }
+return 0;
+}
