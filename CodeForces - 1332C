@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+int num[30];
+char s[200010];
+int main()
+{
+    int t,n,len,count,sum,ju;
+    cin>>t;
+    s[0]=' ';
+    while(t--)
+    {
+        sum=0;
+        cin>>n>>len;
+        scanf("%s",&s[1]);
+        if(len>1)
+        {
+        for(int start=1; start<=(len+1)/2; start++)
+        {
+            ju=0;
+            memset(num,0,sizeof(num));
+            count=1;
+            for(int i=start; i<=n; i+=len,count++)
+            {
+                num[s[i]-'a']++;
+                if(count*len+1-i%len!=i)
+                num[s[count*len+1-(i%len)]-'a']++;
+                else
+                    ju=1;
+            }
+            sort(num,num+30);
+            if(ju==0)
+            sum+=(n/len*2-num[29]);
+            else
+                sum+=(n/len-num[29]);
+        }
+        }
+        else
+        {
+            memset(num,0,sizeof(num));
+            for(int i=1;i<=n;i++)
+                num[s[i]-'a']++;
+            sort(num,num+30);
+            sum+=n-num[29];
+        }
+        cout<<sum<<endl;
+    }
+    return 0;
+}
