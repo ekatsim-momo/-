@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+int su[11]={2,3,5,7,11,13,17,19,23,29,31};
+int num[1111];
+bool yes[12];
+map<int,int>m;
+int main()
+{
+    int n,len,count;
+    cin>>n;
+    while(n--)
+    {
+        m.clear();
+        count=0;
+        memset(yes,false,sizeof(yes));
+        cin>>len;
+        for(int i=1;i<=len;i++)
+            cin>>num[i];
+            for(int i=1;i<=len;i++)
+            for(int j=0;j<11;j++)
+            {
+                if(num[i]%su[j]==0)
+                {
+                    num[i]=j;
+                    yes[j]=true;
+                    break;
+                }
+            }
+            for(int i=0;i<11;i++)
+                if(yes[i])
+                {
+                    count++;
+                    m[i]=count;
+                }
+            cout<<count<<endl;
+            for(int i=1;i<len;i++)
+                cout<<m[num[i]]<<" ";
+            cout<<m[num[len]]<<endl;
+    }
+    return 0;
+}
