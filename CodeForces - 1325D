@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool yes(long long num,long long s)
+{
+    return !(num&s);
+}
+int main()
+{
+    long long u,v;
+    cin>>u>>v;
+    if(u>v)
+        cout<<-1<<endl;
+    else if(u==0&&v==0)
+    cout<<0<<endl;
+    else if(u==v)
+        cout<<1<<endl<<u<<endl;
+    else
+    {
+        if((v-u)%2!=0)
+            cout<<-1<<endl;
+        else
+        {
+            if(yes((v-u)/2,u))
+                cout<<2<<endl<<(v-u)/2+u<<" "<<(v-u)/2<<endl;
+            else
+                cout<<3<<endl<<u<<" "<<(v-u)/2<<" "<<(v-u)/2<<endl;
+        }
+    }
+    return 0;
+}
