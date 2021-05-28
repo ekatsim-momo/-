@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long two[1000000],mem[1000000];
+int main()
+{
+    long long n,q;
+    int num,le,ri;
+    two[0]=0;
+    two[1]=1;
+    mem[0]=0;
+    for(int i=2;i<=1000000;i++)
+        {
+           two[i]=two[i-1]*2;
+           two[i]%=1000000007;
+        }
+    cin>>n>>q;
+     for(int i=1;i<=n;i++)
+        {
+            scanf("%1d",&num);
+        mem[i]=mem[i-1];
+        if(num)
+            mem[i]++;
+        }
+        for(int i=1;i<=q;i++)
+        {
+            scanf("%d %d",&le,&ri);
+            long long all=ri-le+1,ci=mem[ri]-mem[le-1],sum=0;
+            if(ci)
+            sum=(two[ci]*2-1)%1000000007;
+            sum*=two[all-ci+1];
+            sum%=1000000007;
+            cout<<sum<<endl;
+        }
+    return 0;
+}
