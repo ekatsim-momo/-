@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const ll mod = 1e9 + 7;
+ll dp[1000010], ans = 0;
+ll n;
+vector<int>vf[1000010];
+void init()
+{
+	for (int i = 1; i <= 1000000; ++i)
+		for (int j = i; j <= 1000000; j += i)
+			vf[j].push_back(i);
+}
+void cal(ll x)
+{
+	for (int i = vf[x].size() - 1, now; i >= 0; --i)
+	{
+		now = vf[x][i];
+		ans = (ans + dp[now - 1]) % mod;
+		dp[now] = (dp[now - 1] + dp[now]) % mod;
+	}
+}
+int main()
+{
+	scanf("%lld", &n);
+	init();
+	ll x;
+	dp[0] = 1;
+	for (ll i = 1; i <= n; ++i)
+		scanf("%lld", &x), cal(x);
+	printf("%lld\n", ans);
+	return 0;
+}
