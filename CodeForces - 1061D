@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct point
+{
+    long long x,y;
+    bool operator<(const point&a)
+    {
+        return x!=a.x?x<a.x:y<a.y;
+    }
+}edge[100010];
+multiset<long long>m;
+multiset<long long>::iterator j;
+int main()
+{
+    long long n,a,b,sum=0;
+    scanf("%lld%lld%lld",&n,&a,&b);
+    m.insert(1000000001);
+    for(int i=1;i<=n;i++)
+        scanf("%lld%lld",&edge[i].x,&edge[i].y);
+    sort(edge+1,edge+n+1);
+    for(int i=1;i<=n;i++)
+    {
+        j=m.lower_bound(edge[i].x);
+        if(j!=m.begin())
+        {
+            j--;
+            if((edge[i].y-*j)*b<a+b*(edge[i].y-edge[i].x))
+                   {
+                       sum+=(edge[i].y-*j)*b%1000000007;
+                       m.erase(j);
+                   }
+               else
+                   sum+=a+b*(edge[i].y-edge[i].x)%1000000007;
+        }
+        else
+            sum+=a+b*(edge[i].y-edge[i].x)%1000000007;
+                       m.insert(edge[i].y);
+                       sum%=1000000007;
+    }
+    cout<<sum<<endl;
+    return 0;
+}
