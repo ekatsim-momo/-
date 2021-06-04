@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+int all[1000010];
+int two[100];
+int main()
+{
+    two[0]=1;
+    for(int i=1;i<=30;i++)
+        two[i]=two[i-1]*2;
+    int n;
+    memset(all,0,sizeof(all));
+    cin>>n;
+        int lin=n;
+    for(int i=0;n;i++)
+    {
+        int num=(n+1)/2;
+        if(n==1&&i>0)
+        {
+            int ans=two[i-1];
+            if(ans*3<=lin)
+            cout<<ans*3<<endl;
+            else
+            {
+                for(int j=1;j<=num;j++)
+            printf("%d ",two[i]);
+            }
+        }
+        else
+        {
+                for(int j=1;j<=num;j++)
+            printf("%d ",two[i]);
+        }
+        n-=num;
+    }
+    return 0;
+}
